@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Stack, TextField, Button } from "@mui/material";
 
@@ -52,6 +52,18 @@ export default function Home() {
     });
   };
 
+  const messagesEndRef = useRef(null)
+
+const scrollToBottom = () => {
+  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+}
+
+useEffect(() => {
+  scrollToBottom()
+}, [messages])
+
+
+
   return (
     <Box
       width="100vw"
@@ -100,6 +112,7 @@ export default function Home() {
               </Box>
             ))
           }
+          <div ref={messagesEndRef} />
         </Stack>
         <Stack direction='row' spacing={2}>
           <TextField
